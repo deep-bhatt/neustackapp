@@ -32,14 +32,14 @@ def cart_routes(app, cart_manager: CartManager):
     data = request.json
     cart = cart_manager.get_cart()
 
-    # if cart is empty. return error
+    if not len(cart.items):
+      return jsonify({'error': 'cart is empty'}), 400
 
     code = ''
     if data and data['discountCode']:
       code = data['discountCode']
 
-    # validate discount code
-    if code and code not in get_valid_discount_codes():
+    if not DiscountService.validate_discount_code(code):
       return jsonify({'error': 'discount code invalid'}), 400
 
     # checkouts cart & creates an order

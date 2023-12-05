@@ -46,7 +46,7 @@ def add_to_total_discount_amount(amount):
   _total_discount_amount += amount
 
 def get_valid_discount_codes():
-    return _valid_discount_codes
+  return _valid_discount_codes
 
 def add_valid_discount_code(code):
   _valid_discount_codes.append(code)

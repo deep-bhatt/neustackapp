@@ -1,6 +1,6 @@
 import random
 import string
-from models.stats import *
+from store.stats import *
 
 class DiscountService:
   @staticmethod

@@ -53,8 +53,8 @@ def get_valid_discount_code(user):
 def set_valid_discount_code(user, code):
   _valid_discount_codes[user] = code
 
-def remove_valid_discount_code(user):
-  _valid_discount_codes[user] = ''
+def reset_valid_discount_codes():
+  _valid_discount_codes.clear()
 
 def nth_order_discount():
   return _nth_order_discount

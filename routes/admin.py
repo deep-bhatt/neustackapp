@@ -1,5 +1,5 @@
 from flask import jsonify
-from models.stats import *
+from store.stats import *
 
 def admin_routes(app):
 

@@ -7,9 +7,9 @@ class Item:
   def to_dict(self):
     """ Convert the object to a dictionary """
     return {
-        "id": self.id,
-        "name": self.name,
-        "price": self.price
+      "id": self.id,
+      "name": self.name,
+      "price": self.price
     }
 
 class Cart:

@@ -1,6 +1,7 @@
 from flask import request, jsonify
+from models.models import Item, Cart, Order
 
-def cart_routes(app):
+def cart_routes(app, cart: Cart):
 
   @app.route('/cart/add', methods=['POST'])
   def add_to_cart():

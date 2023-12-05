@@ -1,5 +1,7 @@
 from flask import request, jsonify
-from models.models import Item, Order, CartManager, Cart
+from models.order import Order
+from models.item import Item
+from models.cart import CartManager, Cart
 from services.discount import DiscountService
 from store.stats import *
 

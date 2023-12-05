@@ -1,17 +1,3 @@
-class Item:
-  def __init__(self, id, name, price):
-    self.id = id
-    self.name = name
-    self.price = price
-
-  def to_dict(self):
-    """ Convert the object to a dictionary """
-    return {
-      "id": self.id,
-      "name": self.name,
-      "price": self.price
-    }
-
 class Cart:
   def __init__(self):
     self.items = []
@@ -39,10 +25,3 @@ class CartManager:
 
   def reset_all_carts(self):
     self.cart.clear()
-
-class Order:
-  def __init__(self):
-    self.items = []
-    self.total = 0
-    self.discount_code = None
-    self.total_discount_availed = 0

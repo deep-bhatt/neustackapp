@@ -3,7 +3,7 @@ from flask import Flask
 from routes.cart import cart_routes
 from routes.admin import admin_routes
 
-from models.models import CartManager
+from models.cart import CartManager
 
 app = Flask(__name__)
 

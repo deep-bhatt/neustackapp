@@ -1,6 +1,6 @@
 from flask import jsonify
 from store.stats import *
-from models.models import CartManager
+from models.cart import CartManager
 
 def admin_routes(app, cart_manager: CartManager):
 

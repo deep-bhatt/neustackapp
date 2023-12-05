@@ -13,6 +13,16 @@ _valid_discount_codes = {}
 # Discount code generated every 3rd order.
 _nth_order_discount = 3
 
+def reset_stats():
+  _discount_codes_generated.clear()
+  _valid_discount_codes.clear()
+
+  global _item_purchased_count, _total_orders_placed, _total_purchase_amount, _total_discount_amount
+  _item_purchased_count = 0
+  _total_orders_placed = 0
+  _total_discount_amount = 0
+  _total_purchase_amount = 0
+
 def get_discount_codes_generated():
   return _discount_codes_generated
 

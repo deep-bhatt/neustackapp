@@ -78,8 +78,7 @@ def cart_routes(app, cart_manager: CartManager):
     cart_manager.reset_cart(userId)
 
     resp = {
-      'msg': 'Order placed successfully.',
-      'total_orders_placed': get_total_orders_placed()
+      'msg': 'Order placed successfully.'
     }
 
-    return jsonify(resp), 201
+    return jsonify(resp), 200

@@ -37,6 +37,9 @@ class CartManager:
 
     return self.cart[user]
 
+  def reset_all_carts(self):
+    self.cart.clear()
+
 class Order:
   def __init__(self):
     self.items = []

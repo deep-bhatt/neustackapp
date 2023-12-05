@@ -12,7 +12,7 @@ class DiscountService:
     if get_total_orders_placed() == 0:
       return False
 
-    return get_total_orders_placed() % nth_order_discount() == 0
+    return (get_total_orders_placed()+1) % nth_order_discount() == 0
 
   @staticmethod
   def generate_discount_code(length=6):

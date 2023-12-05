@@ -1,18 +1,18 @@
 import random
 import string
-from models.stats import total_orders_placed, nth_order_discount
+from models.stats import *
 
 class DiscountService:
   @staticmethod
   def is_discount_applicable():
     # n is the nth order
-    if nth_order_discount == 1 or nth_order_discount == 0:
+    if nth_order_discount() == 1 or nth_order_discount() == 0:
       return True
 
-    if total_orders_placed == 0:
+    if get_total_orders_placed() == 0:
       return False
 
-    return total_orders_placed % nth_order_discount == 0
+    return get_total_orders_placed() % nth_order_discount() == 0
 
   @staticmethod
   def generate_discount_code(length=6):

@@ -9,6 +9,9 @@ def cart_routes(app, cart_manager: CartManager):
     data = request.json
     userId = request.headers.get('x-user-id')
 
+    if not userId:
+      return jsonify({'error': 'userId not provided'}), 400
+
     item = Item(data['id'], data['name'], data['price'])
     cart: Cart = cart_manager.get_cart(userId)
     cart.items.append(item)
@@ -36,6 +39,10 @@ def cart_routes(app, cart_manager: CartManager):
   def checkout():
     data = request.json
     userId = request.headers.get('x-user-id')
+
+    if not userId:
+      return jsonify({'error': 'userId not provided'}), 400
+
     cart = cart_manager.get_cart(userId)
 
     if not len(cart.items):

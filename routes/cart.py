@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from models.models import Item, Order, CartManager, Cart
 from services.discount import DiscountService
-from models.stats import *
+from store.stats import *
 
 def cart_routes(app, cart_manager: CartManager):
   @app.route('/cart/add', methods=['POST'])
@@ -57,7 +57,9 @@ def cart_routes(app, cart_manager: CartManager):
     if order.discount_code:
       order.total_discount_availed = 0.1 * order.total
       order.total = order.total - order.total_discount_availed
-      remove_valid_discount_code(order.discount_code)
+
+    # clear discount codes
+    reset_valid_discount_codes()
 
     # Update stats
     add_to_total_discount_amount(order.total_discount_availed)

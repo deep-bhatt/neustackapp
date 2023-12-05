@@ -21,9 +21,9 @@ class DiscountService:
     return ''.join(random.choice(letters) for _ in range(length))
 
   @staticmethod
-  def validate_discount_code(code) -> bool:
+  def validate_discount_code(user, code) -> bool:
     """ Returns True if discount code is valid. """
-    if code and code not in get_valid_discount_codes():
+    if code and code != get_valid_discount_code(user):
       return False
 
     return True

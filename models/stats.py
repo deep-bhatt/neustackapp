@@ -6,7 +6,9 @@ _item_purchased_count = 0
 _total_orders_placed = 0
 _total_purchase_amount = 0
 _total_discount_amount = 0
-_valid_discount_codes = []
+
+# stores user: discountCode key - value pairs
+_valid_discount_codes = {}
 
 # Discount code generated every 3rd order.
 _nth_order_discount = 3
@@ -45,14 +47,14 @@ def add_to_total_discount_amount(amount):
   global _total_discount_amount
   _total_discount_amount += amount
 
-def get_valid_discount_codes():
-  return _valid_discount_codes
+def get_valid_discount_code(user):
+  return _valid_discount_codes.get(user, '')
 
-def add_valid_discount_code(code):
-  _valid_discount_codes.append(code)
+def set_valid_discount_code(user, code):
+  _valid_discount_codes[user] = code
 
-def remove_valid_discount_code(code):
-  _valid_discount_codes.remove(code)
+def remove_valid_discount_code(user):
+  _valid_discount_codes[user] = ''
 
 def nth_order_discount():
   return _nth_order_discount

@@ -25,14 +25,17 @@ class Cart:
 
 class CartManager:
   def __init__(self):
-    self.cart = Cart()
+    self.cart = {}
 
-  def get_cart(self):
-    return self.cart
+  def get_cart(self, user: str):
+    self.cart[user] = self.cart.get(user, Cart())
+    return self.cart[user]
 
-  def reset_cart(self):
-    self.cart = Cart()
-    return self.cart
+  def reset_cart(self, user: str):
+    if user in self.cart:
+      self.cart[user] = Cart()
+
+    return self.cart[user]
 
 class Order:
   def __init__(self):

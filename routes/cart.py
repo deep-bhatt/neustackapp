@@ -7,15 +7,20 @@ def cart_routes(app, cart_manager: CartManager):
   @app.route('/cart/add', methods=['POST'])
   def add_to_cart():
     data = request.json
+    userId = request.headers.get('x-user-id')
+
     item = Item(data['id'], data['name'], data['price'])
-    cart: Cart = cart_manager.get_cart()
+    cart: Cart = cart_manager.get_cart(userId)
     cart.items.append(item)
 
-    code = ''
-    if DiscountService.is_discount_applicable():
+    # returns discount code if already previously generated for
+    # this user.
+    code = get_valid_discount_code(userId)
+
+    if not code and DiscountService.is_discount_applicable():
       code = DiscountService.generate_discount_code()
       add_generated_discount_code(code)
-      add_valid_discount_code(code)
+      set_valid_discount_code(userId, code)
 
     resp = {
       "message": "Item added to cart",
@@ -30,7 +35,8 @@ def cart_routes(app, cart_manager: CartManager):
   @app.route('/checkout', methods=['POST'])
   def checkout():
     data = request.json
-    cart = cart_manager.get_cart()
+    userId = request.headers.get('x-user-id')
+    cart = cart_manager.get_cart(userId)
 
     if not len(cart.items):
       return jsonify({'error': 'cart is empty'}), 400
@@ -39,7 +45,7 @@ def cart_routes(app, cart_manager: CartManager):
     if data and data['discountCode']:
       code = data['discountCode']
 
-    if not DiscountService.validate_discount_code(code):
+    if not DiscountService.validate_discount_code(userId, code):
       return jsonify({'error': 'discount code invalid'}), 400
 
     # checkouts cart & creates an order
@@ -60,7 +66,7 @@ def cart_routes(app, cart_manager: CartManager):
     increment_item_purchased_count(len(order.items))
 
     # reset cart after checkout
-    cart_manager.reset_cart()
+    cart_manager.reset_cart(userId)
 
     resp = {
       'msg': 'Order placed successfully.',

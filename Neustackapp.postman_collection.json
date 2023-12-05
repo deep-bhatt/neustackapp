@@ -1,0 +1,1017 @@
+{
+	"info": {
+		"_postman_id": "e257adde-cd11-4bbb-afa6-0ec8778729cf",
+		"name": "Neustackapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31598530"
+	},
+	"item": [
+		{
+			"name": "TESTS",
+			"item": [
+				{
+					"name": "Reset State",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response has cart and message properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('msg');",
+									"});",
+									"",
+									"pm.test(\"Valid success message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.msg).to.eql(\"app reset success\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/reset",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST #1 Add to cart - User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response has cart and message properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('cart');",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"});",
+									"",
+									"pm.test(\"Cart is an array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.cart).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Vaid Cart item structure\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.cart[0]).to.have.property('id');",
+									"    pm.expect(jsonData.cart[0]).to.have.property('name');",
+									"    pm.expect(jsonData.cart[0]).to.have.property('price');",
+									"    pm.expect(jsonData.cart[0].id).to.eql(1);",
+									"    pm.expect(jsonData.cart[0].name).to.eql(\"apple\");",
+									"    pm.expect(jsonData.cart[0].price).to.eql(100);",
+									"});",
+									"",
+									"pm.test(\"Valid success message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Item added to cart\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"name\": \"apple\",\n    \"price\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/cart/add",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"cart",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST #2 Add to cart - User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response has cart and message properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('cart');",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"});",
+									"",
+									"pm.test(\"Cart is an array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.cart).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Vaid Cart item structure\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.cart[1]).to.have.property('id');",
+									"    pm.expect(jsonData.cart[1]).to.have.property('name');",
+									"    pm.expect(jsonData.cart[1]).to.have.property('price');",
+									"    pm.expect(jsonData.cart[1].id).to.eql(2);",
+									"    pm.expect(jsonData.cart[1].name).to.eql(\"banana\");",
+									"    pm.expect(jsonData.cart[1].price).to.eql(200);",
+									"});",
+									"",
+									"pm.test(\"Valid success message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Item added to cart\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"name\": \"banana\",\n    \"price\": 200\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/cart/add",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"cart",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST #3 Chkout Empty Cart - User 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response contains 'error'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('error');",
+									"});",
+									"",
+									"pm.test(\"Check error message content\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"cart is empty\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"discountCode\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/checkout",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST #4 Invalid Discount Code - User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response contains 'error'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('error');",
+									"});",
+									"",
+									"pm.test(\"Check error message content\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"discount code invalid\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"discountCode\": \"INVALID\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/checkout",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST #5 Chkout Cart - User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response contains msg\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('msg');",
+									"});",
+									"",
+									"pm.test(\"msg is a string\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.msg).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Check message content\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.msg).to.eql(\"Order placed successfully.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"discountCode\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/checkout",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST #6 Admin Stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response contains all required properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('discount_codes_generated');",
+									"    pm.expect(jsonData).to.have.property('items_purchased_count');",
+									"    pm.expect(jsonData).to.have.property('total_discount_availed');",
+									"    pm.expect(jsonData).to.have.property('total_orders_placed');",
+									"    pm.expect(jsonData).to.have.property('total_purchase_amount');",
+									"});",
+									"",
+									"pm.test(\"discount_codes_generated is an array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.discount_codes_generated).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"items_purchased_count is a number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.items_purchased_count).to.be.a('number');",
+									"    pm.expect(jsonData.items_purchased_count).to.eql(2);",
+									"});",
+									"",
+									"pm.test(\"total_discount_availed is a number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.total_discount_availed).to.be.a('number');",
+									"    pm.expect(jsonData.total_discount_availed).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"total_orders_placed is a number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.total_orders_placed).to.be.a('number');",
+									"    pm.expect(jsonData.total_orders_placed).to.eql(1);",
+									"});",
+									"",
+									"pm.test(\"total_purchase_amount is a number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.total_purchase_amount).to.be.a('number');",
+									"    pm.expect(jsonData.total_purchase_amount).to.eql(300);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/stats",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST #7 Add to cart - User 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response has cart and message properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('cart');",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"});",
+									"",
+									"pm.test(\"Cart is an array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.cart).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Vaid Cart item structure\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.cart[0]).to.have.property('id');",
+									"    pm.expect(jsonData.cart[0]).to.have.property('name');",
+									"    pm.expect(jsonData.cart[0]).to.have.property('price');",
+									"    pm.expect(jsonData.cart[0].id).to.eql(5);",
+									"    pm.expect(jsonData.cart[0].name).to.eql(\"banana\");",
+									"    pm.expect(jsonData.cart[0].price).to.eql(250);",
+									"});",
+									"",
+									"pm.test(\"Valid success message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Item added to cart\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 5,\n    \"name\": \"banana\",\n    \"price\": 250\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/cart/add",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"cart",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST #8 Chkout Cart - User 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response contains msg\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('msg');",
+									"});",
+									"",
+									"pm.test(\"msg is a string\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.msg).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Check message content\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.msg).to.eql(\"Order placed successfully.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"discountCode\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/checkout",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST #9 Add to cart - User 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response contains cart, discountCode, and message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('cart');",
+									"    pm.expect(jsonData).to.have.property('discountCode');",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"});",
+									"",
+									"pm.test(\"Cart is an array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.cart).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Cart item structure\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.cart[0]).to.have.property('id');",
+									"    pm.expect(jsonData.cart[0]).to.have.property('name');",
+									"    pm.expect(jsonData.cart[0]).to.have.property('price');",
+									"    pm.expect(jsonData.cart[0].id).to.eql(7);",
+									"    pm.expect(jsonData.cart[0].name).to.eql(\"apple watch\");",
+									"    pm.expect(jsonData.cart[0].price).to.eql(400);",
+									"});",
+									"",
+									"pm.test(\"DiscountCode is a string and save it\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.discountCode).to.be.a('string');",
+									"",
+									"    // Save the discount code to an environment variable",
+									"    pm.environment.set(\"discountCode\", jsonData.discountCode);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Item added to cart\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 7,\n    \"name\": \"apple watch\",\n    \"price\": 400\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/cart/add",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"cart",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST #10 Discounted Chkout - User 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response contains msg\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('msg');",
+									"});",
+									"",
+									"pm.test(\"msg is a string\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.msg).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Check message content\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.msg).to.eql(\"Order placed successfully.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"discountCode\": \"{{discountCode}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/checkout",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST #11 Admin Stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response must be valid and have a body\", function () {",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response contains all required properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('discount_codes_generated');",
+									"    pm.expect(jsonData).to.have.property('items_purchased_count');",
+									"    pm.expect(jsonData).to.have.property('total_discount_availed');",
+									"    pm.expect(jsonData).to.have.property('total_orders_placed');",
+									"    pm.expect(jsonData).to.have.property('total_purchase_amount');",
+									"});",
+									"",
+									"pm.test(\"discount_codes_generated is an array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.discount_codes_generated).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"items_purchased_count is a number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.items_purchased_count).to.be.a('number');",
+									"    pm.expect(jsonData.items_purchased_count).to.eql(4);",
+									"});",
+									"",
+									"pm.test(\"total_discount_availed is a number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.total_discount_availed).to.be.a('number');",
+									"    pm.expect(jsonData.total_discount_availed).to.eql(40.0);",
+									"});",
+									"",
+									"pm.test(\"total_orders_placed is a number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.total_orders_placed).to.be.a('number');",
+									"    pm.expect(jsonData.total_orders_placed).to.eql(3);",
+									"});",
+									"",
+									"pm.test(\"total_purchase_amount is a number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.total_purchase_amount).to.be.a('number');",
+									"    pm.expect(jsonData.total_purchase_amount).to.eql(910.0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/stats",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"stats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add to cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "test3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"a\",\n    \"price\": 130\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/cart/add",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"cart",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Stats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/stats",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checkout Cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-user-id",
+						"value": "test3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"discountCode\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/checkout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"checkout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

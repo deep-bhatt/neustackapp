@@ -19,7 +19,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the pro
 # Installs project dependencies
 * pip -r install requirements.txt
 
-# Starts the development server on port http://127.0.0.1:5000
+# Starts the development server on http://127.0.0.1:5000
 * flask run
 ```
 
@@ -27,7 +27,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the pro
 
 * `/models` contains data object definition for Item, Cart and Order.<br><br>
 * `/services` contains helper functions for facilitating discounts.<br><br>
-* `/store` contains application in-memory global state, this is an alternative way of achieving Singleton behavior. It also contains getters and setters to managing the global state.<br><br>
+* `/store` contains application in-memory global state, this is an alternative way of achieving Singleton behavior. It also contains getters and setters for managing the global state.<br><br>
 * `/tests` contains unit-tests that thoroughly tests adding to cart, checkout and discount functionality, it also tests getters and setters methods for global state.<br><br>
 
 ## 🔩 Running unit tests
